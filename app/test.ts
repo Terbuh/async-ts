@@ -1,38 +1,32 @@
-const container3 = document.querySelector('.companiesanditsusers');
+const container3 = document.querySelector('.companies-and-its-users');
 
 console.log('Start Index.js');
 
 const urlUsers = "http://localhost:3000/users";
 const urlCompanies = "http://localhost:3000/companies";
 
-type UserCompany = {
-    company: string;
-}
-type User = {
+type UserType = {
     name: string;
     uri: string;
     email: string;
-    uris : UserCompany;
+    uris : {
+        company: string;
+    };
 }
-type Company = {
+type CompanyType = {
     name: string;
     uri: string;
 }
-let dataUsers: User = {
-    name: "User 0",
-    uri: "/users/0",
-    email: "przemasw@ergo.com",
-    uris: {
-        company: "/companies/343"
-    }
-}
-console.log(dataUsers);
 
-let dataCompanies: Company = {
-    name: "Company 0",
-    uri: "/companies/0"
+async function getData<T>(url: string): Promise<T> {
+    let res = await fetch(url);
+    return await res.json();
 }
 
-console.log(dataCompanies);
-// window.addEventListener('DOMContentLoaded', () => renderCompaniesAndItsUsers());
+const usersData = getData<UserType>(urlUsers);
+const companiesData = getData<CompanyType>(urlCompanies);
 
+console.log('userDataX',usersData);
+console.log('companiesDataX',companiesData);
+
+// window.addEventListener('DOMContentLoaded', () => renderCompaniesAndItsUsers())
