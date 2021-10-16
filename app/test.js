@@ -34,10 +34,19 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var _this = this;
 var container3 = document.querySelector('.companies-and-its-users');
 console.log('Start Index.js');
 var urlUsers = "http://localhost:3000/users";
 var urlCompanies = "http://localhost:3000/companies";
+// async function getDataUser<UserType>(url: string): Promise<UserType> {
+//     let res = await fetch(url);
+//     return await res.json();
+// }
+// async function getDataCompanies<CompanyType>(url: string): Promise<CompanyType> {
+//     let res = await fetch(url);
+//     return await res.json();
+// }
 function getData(url) {
     return __awaiter(this, void 0, void 0, function () {
         var res;
@@ -56,4 +65,29 @@ var usersData = getData(urlUsers);
 var companiesData = getData(urlCompanies);
 console.log('userDataX', usersData);
 console.log('companiesDataX', companiesData);
+var renderCompaniesAndItsUsers = function () { return __awaiter(_this, void 0, void 0, function () {
+    var users, companies, template;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, usersData];
+            case 1:
+                users = _a.sent();
+                return [4 /*yield*/, companiesData()];
+            case 2:
+                companies = _a.sent();
+                template = '';
+                companies.forEach(function (company) {
+                    template += "\n                <table class=\"company\">\n                <th>Name: " + company.name + "</th>\n                 </table>";
+                    users.forEach(function (user) {
+                        if (company.uri === user.uris.company) {
+                            template += "\n                  <table class=\"user\">\n                  <td>Name: " + user.name + ",</td>\n                  <td>email: " + user.email + "</td>\n                  </table>";
+                        }
+                    });
+                });
+                container3.innerHTML = template;
+                return [2 /*return*/];
+        }
+    });
+}); };
+renderCompaniesAndItsUsers();
 // window.addEventListener('DOMContentLoaded', () => renderCompaniesAndItsUsers())
