@@ -67,4 +67,29 @@ const renderCompaniesAndItsUsers = async () => {
 }
 renderCompaniesAndItsUsers();
 
+const renderCompaniesAndItsUsers = async () => {
+    let users = await usersData;
+    let companies = await companiesData;
+
+    let template = '';
+    companies.forEach(company => {
+        template +=`
+                <table class="company">
+                <th>Name: ${company.name}</th>
+                 </table>`
+        
+        users.forEach(user =>  {
+            if ( company.uri === user.uris.company ) {
+                template += `
+                  <table class="user">
+                  <td>Name: ${user.name},</td>
+                  <td>email: ${user.email}</td>
+                  </table>`
+            }
+        })
+    })
+    container3.innerHTML = template;
+}
+renderCompaniesAndItsUsers();
+
 // window.addEventListener('DOMContentLoaded', () => renderCompaniesAndItsUsers())
