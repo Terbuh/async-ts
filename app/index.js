@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,20 +35,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var _this = this;
 var container3 = document.querySelector('.companies-and-its-users');
-console.log('Start Index.js');
 var urlUsers = "http://localhost:3000/users";
 var urlCompanies = "http://localhost:3000/companies";
-// async function getDataUser<UserType>(url: string): Promise<UserType> {
-//     let res = await fetch(url);
-//     return await res.json();
-// }
-// async function getDataCompanies<CompanyType>(url: string): Promise<CompanyType> {
-//     let res = await fetch(url);
-//     return await res.json();
-// }
-function getData(url) {
+function getDataUser(url) {
     return __awaiter(this, void 0, void 0, function () {
         var res;
         return __generator(this, function (_a) {
@@ -61,18 +52,30 @@ function getData(url) {
         });
     });
 }
-var usersData = getData(urlUsers);
-var companiesData = getData(urlCompanies);
-console.log('userDataX', usersData);
-console.log('companiesDataX', companiesData);
-var renderCompaniesAndItsUsers = function () { return __awaiter(_this, void 0, void 0, function () {
+function getDataCompanies(url) {
+    return __awaiter(this, void 0, void 0, function () {
+        var res;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, fetch(url)];
+                case 1:
+                    res = _a.sent();
+                    return [4 /*yield*/, res.json()];
+                case 2: return [2 /*return*/, _a.sent()];
+            }
+        });
+    });
+}
+var usersDataX = getDataUser(urlUsers);
+var companiesDataX = getDataCompanies(urlCompanies);
+var renderCompaniesAndItsUsers = function () { return __awaiter(void 0, void 0, void 0, function () {
     var users, companies, template;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, usersData];
+            case 0: return [4 /*yield*/, usersDataX];
             case 1:
                 users = _a.sent();
-                return [4 /*yield*/, companiesData()];
+                return [4 /*yield*/, companiesDataX];
             case 2:
                 companies = _a.sent();
                 template = '';
@@ -84,7 +87,12 @@ var renderCompaniesAndItsUsers = function () { return __awaiter(_this, void 0, v
                         }
                     });
                 });
-                container3.innerHTML = template;
+                if (container3 === null) {
+                    alert('oops');
+                }
+                else {
+                    container3.innerHTML = template; // <- no error
+                }
                 return [2 /*return*/];
         }
     });

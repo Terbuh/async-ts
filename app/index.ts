@@ -1,5 +1,7 @@
 const container3 = document.querySelector('.companies-and-its-users');
 
+
+
 const urlUsers = "http://localhost:3000/users";
 const urlCompanies = "http://localhost:3000/companies";
 
@@ -29,7 +31,7 @@ async function getDataCompanies<CompanyType>(url: string): Promise<CompanyType> 
 const usersDataX = getDataUser<UserType[]>(urlUsers);
 const companiesDataX = getDataCompanies<CompanyType[]>(urlCompanies);
 
-const renderCompaniesAndItsUsers = async () => {
+const renderCompaniesAndItsUsers = async (): Promise<string> => {
     let users = await usersDataX;
     let companies = await companiesDataX;
 
@@ -50,7 +52,15 @@ const renderCompaniesAndItsUsers = async () => {
             }
         })
     })
-    container3.innerHTML = template;
+
+    if (container3 === null) {
+        alert('oops');
+    } else {
+        container3.innerHTML = template; // <- no error
+    }
+
+    // container3.innerHTML = template;
+
 }
 renderCompaniesAndItsUsers();
 
