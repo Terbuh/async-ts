@@ -31,7 +31,7 @@ async function getDataCompanies<CompanyType>(url: string): Promise<CompanyType> 
 const usersDataX = getDataUser<UserType[]>(urlUsers);
 const companiesDataX = getDataCompanies<CompanyType[]>(urlCompanies);
 
-const renderCompaniesAndItsUsers = async (): Promise<string> => {
+const renderCompaniesAndItsUsers = async (): Promise<void> => {
     let users = await usersDataX;
     let companies = await companiesDataX;
 
@@ -53,10 +53,10 @@ const renderCompaniesAndItsUsers = async (): Promise<string> => {
         })
     })
 
-    if (container3 === null) {
-        alert('oops');
+    if (container3 != null) {
+        container3.innerHTML = template
     } else {
-        container3.innerHTML = template; // <- no error
+        console.log("Container3 is null!"); // <- no error
     }
 
     // container3.innerHTML = template;
