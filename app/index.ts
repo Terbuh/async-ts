@@ -1,7 +1,5 @@
 const container3 = document.querySelector('.companies-and-its-users');
 
-
-
 const urlUsers = "http://localhost:3000/users";
 const urlCompanies = "http://localhost:3000/companies";
 
@@ -56,12 +54,8 @@ const renderCompaniesAndItsUsers = async (): Promise<void> => {
     if (container3 != null) {
         container3.innerHTML = template
     } else {
-        console.log("Container3 is null!"); // <- no error
+        console.log("Container3 is null!");
     }
-
-    // container3.innerHTML = template;
 
 }
 renderCompaniesAndItsUsers();
-
-// window.addEventListener('DOMContentLoaded', () => renderCompaniesAndItsUsers())
